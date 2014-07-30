@@ -1,11 +1,9 @@
 package com.todo.resources;
 
 import com.todo.domain.TodoItem;
-import com.todo.resources.json.TodoItemJson;
 import com.todo.resources.json.TodoItemRequest;
 import com.todo.resources.json.TodoItemResponse;
-import com.todo.services.TodoItemService;
-import org.apache.commons.lang3.StringUtils;
+import com.todo.service.TodoItemService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,6 +14,8 @@ import java.util.List;
  */
 @Path("/todo/items")
 public class ToDoItemsResource {
+
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
