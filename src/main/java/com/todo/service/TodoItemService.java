@@ -6,6 +6,8 @@ import com.todo.repository.ItemRepository;
 import com.todo.repository.TodoItemInMemoryRepository;
 import io.searchbox.core.Search;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +21,18 @@ import java.util.concurrent.atomic.AtomicLong;
 public class TodoItemService {
 
 
+    private final Logger log = LoggerFactory.getLogger(TodoItemService.class);
+
     private static final TodoItemService service = new TodoItemService();
 
+
     private final ItemRepository repository = new TodoItemInMemoryRepository();
+
+    private final NotificationService notificationService = new TwilioNotificationServiceImpl();
+
+    private final SearchService searchService = SearchService.getService();
+
+
 
     public static TodoItemService getService() {
         return service;
@@ -36,7 +47,7 @@ public class TodoItemService {
 
         item = repository.save(item);
 
-        SearchService.getService().addItemsToIndex(item);
+        searchService.addItemsToIndex(item);
 
         return item;
     }
@@ -51,13 +62,17 @@ public class TodoItemService {
         if (StringUtils.isEmpty(query)) {
             return  repository.findAll();
         }
-        return SearchService.getService().searchTodoItems(query);
-
+        return searchService.searchTodoItems(query);
     }
 
     public TodoItem deleteItem(String id) {
 
-        return repository.delete(id);
+
+        TodoItem deletedItem = repository.delete(id);
+
+        //remove deletedItem from search index;
+
+        return  deletedItem;
 
     }
 
@@ -75,11 +90,18 @@ public class TodoItemService {
 
         repository.update(currentItem);
 
+        //TODO : update item in index;
+
         //if done , then send sms
         if(markDone) {
-            //then send sms
+
+            boolean sent = notificationService.send(title);
+
+            if(!sent) {
+                log.info("Unable to send SMS on completion of task");
+            }
         }
-        
+
         return  currentItem;
     }
 }

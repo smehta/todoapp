@@ -26,7 +26,7 @@ public class SearchService {
 
     private static final SearchService searchService = new SearchService();
 
-    private static final String SEARCH_URI = "https://site:23c35cdb08adb7481065ed3df478622a@balin-eu-west-1.searchly.com";
+    private static final String SEARCH_URI = System.getenv("SEARCHLY_URI");
 
     private Logger log = LoggerFactory.getLogger(SearchService.class);
 
