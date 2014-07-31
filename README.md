@@ -1,25 +1,25 @@
-A sample todo app implemented using Jersey, Maven and mongodb.
+Todo App
+____________
+Demonstrates the capabilities of REST api implemented using Jersey, Maven, mongodb, elasticsearch and twilio. 
 
 Pre-requisites:
 ---------------
 
-Please set following environment variables
+Please set following environment variables :
 
-export TWILIO_ACCOUNT_SID=
+*  TWILIO_ACCOUNT_SID=
+*  TWILIO_AUTH_TOKEN=
+*  TWILIO_TO=
+*  TWILIO_FROM=
+*  SEARCHLY_URI=
+*  MONGO_HOST=
+*  MONGO_PORT=
 
-export TWILIO_AUTH_TOKEN=
+Example: 
+$ export MONGO_HOST="localhost"
 
-export TWILIO_TO=
-
-export TWILIO_FROM=
-
-export SEARCHLY_URI=
-
-export MONGO_HOST=
-
-export MONGO_PORT=
-
-
+REST API
+--------------
 Sample JSON of todo app:
 { "title" : "Cleaning house" "body" : "Laundry etc..", "done" : false }
 
