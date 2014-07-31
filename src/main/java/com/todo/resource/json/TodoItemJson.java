@@ -1,8 +1,6 @@
-package com.todo.resources.json;
+package com.todo.resource.json;
 
 import com.todo.domain.TodoItem;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by smehta on 7/26/14.

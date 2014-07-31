@@ -5,6 +5,7 @@ import com.todo.domain.TodoItem;
 import com.todo.repository.ItemRepository;
 import com.todo.repository.TodoItemInMemoryRepository;
 import com.todo.repository.TodoItemMongodbRepository;
+import exception.ItemNotFoundException;
 import io.searchbox.core.Search;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -53,7 +54,11 @@ public class TodoItemService {
 
     public TodoItem getItemById(String id) {
 
-        return repository.findById(id);
+        TodoItem item = repository.findById(id);
+        if (item == null) {
+            throw new ItemNotFoundException();
+        }
+        return item;
     }
 
     public List<TodoItem> searchItems(String query) {
@@ -66,6 +71,9 @@ public class TodoItemService {
 
     public void deleteItem(String id) {
 
+        //check if id is valid
+        TodoItem currentItem = getItemById(id);
+
         repository.delete(id);
 
         //remove deletedItem from search index;
@@ -74,11 +82,7 @@ public class TodoItemService {
 
     public TodoItem updateItem(String id, String title, String body, boolean markDone) {
 
-        TodoItem currentItem = repository.findById(id);
-
-        if(currentItem == null) {
-            return  null;
-        }
+        TodoItem currentItem = getItemById(id);
 
         currentItem.setTitle(title);
         currentItem.setBody(body);

@@ -1,8 +1,13 @@
-package com.todo.resources.json;
+package com.todo.resource.json;
+
+import com.todo.validation.ValidateTodoItem;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by smehta on 7/26/14.
  */
+
+@ValidateTodoItem
 public class TodoItemRequest {
 
     private String title;

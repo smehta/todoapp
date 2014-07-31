@@ -11,6 +11,8 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.WebApplicationException;
+
 /**
  * Created by smehta on 7/29/14.
  */
@@ -35,11 +37,13 @@ public class TodoItemMongodbRepository implements ItemRepository {
             db = client.getDB("todoDB");
 
             if (db == null) {
-                throw  new RuntimeException();
+                throw  new WebApplicationException("Database is down", 500);
             }
         } catch (UnknownHostException exception) {
+
             log.error("Error connecting to mongodb server", exception);
-            throw  new RuntimeException();
+
+            throw  new WebApplicationException("Database is down", 500);
         }
     }
 
