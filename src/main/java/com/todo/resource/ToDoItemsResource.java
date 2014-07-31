@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * Root resource (exposed at "myresource" path)
+ * Represents the todoItem resource.  Currently it supports all CRUD operations.
  */
 @Path("/todo/items")
 public class ToDoItemsResource {

@@ -28,6 +28,7 @@ public class TwilioNotificationServiceImpl implements NotificationService {
 
     private Logger log = LoggerFactory.getLogger(TwilioNotificationServiceImpl.class);
 
+    @Override
     public boolean send(String title) {
 
         // Create a rest client

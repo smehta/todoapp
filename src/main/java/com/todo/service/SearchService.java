@@ -61,7 +61,10 @@ public class SearchService {
         return searchService;
     }
 
-
+    /**
+     * Add the given item into search index.
+     * @param item
+     */
     public void addItemsToIndex(TodoItem item) {
 
         try {
@@ -74,6 +77,10 @@ public class SearchService {
         }
     }
 
+    /**
+     * remove the given itemId from the search index.
+     * @param itemId
+     */
     public void removeItemsFromIndex(String itemId) {
 
         try {
@@ -84,6 +91,10 @@ public class SearchService {
         }
     }
 
+    /**
+     * Updates the item in index.
+     * @param item
+     */
     public void updateItemsFromIndex(TodoItem item) {
 
         try {
@@ -103,6 +114,11 @@ public class SearchService {
         }
     }
 
+    /**
+     * searches the index with the given query string and returns the list of matched todo items.
+     * @param query
+     * @return List<TodoItem>
+     */
     public List<TodoItem> searchTodoItems(String query) {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 

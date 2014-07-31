@@ -5,5 +5,10 @@ package com.todo.service;
  */
 public interface NotificationService {
 
+    /**
+     * Using third party API, it sends notification to the user.
+     * @param title
+     * @return true, if notification is sent otherwise false.
+     */
     boolean send(String title);
 }
