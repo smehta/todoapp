@@ -1,11 +1,16 @@
 package com.todo.domain;
 
 
+import io.searchbox.annotations.JestId;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Created by smehta on 7/26/14.
  */
 public class TodoItem {
 
+    @JestId
     private String id;
     private String title;
     private String body;
@@ -51,5 +56,24 @@ public class TodoItem {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof TodoItem){
+            final TodoItem other = (TodoItem) obj;
+            return new EqualsBuilder()
+                    .append(this.id, other.id)
+                    .isEquals();
+        } else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(this.id)
+                .toHashCode();
     }
 }

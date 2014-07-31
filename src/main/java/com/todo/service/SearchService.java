@@ -1,13 +1,16 @@
 package com.todo.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todo.domain.TodoItem;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.JestResult;
 import io.searchbox.client.config.ClientConfig;
 import io.searchbox.client.config.HttpClientConfig;
+import io.searchbox.core.Delete;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
+import io.searchbox.core.Update;
 import io.searchbox.indices.CreateIndex;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -27,6 +30,9 @@ public class SearchService {
     private static final SearchService searchService = new SearchService();
 
     private static final String SEARCH_URI = System.getenv("SEARCHLY_URI");
+
+    private static final String INDEX_NAME = "todoItems";
+    private static final String INDEX_TYPE = "items";
 
     private Logger log = LoggerFactory.getLogger(SearchService.class);
 
@@ -60,11 +66,40 @@ public class SearchService {
 
         try {
 
-            Index index = new Index.Builder(item).index("todoItems").type("item").build();
+            Index index = new Index.Builder(item).index(INDEX_NAME).type(INDEX_TYPE).build();
             client.execute(index);
 
         } catch (Exception e) {
             log.info("Error while adding items to index", e);
+        }
+    }
+
+    public void removeItemsFromIndex(String itemId) {
+
+        try {
+            Delete delete = new Delete.Builder(itemId).index(INDEX_NAME).type(INDEX_TYPE).build();
+            client.execute(delete);
+        } catch (Exception e) {
+            log.error("Error while delete item from index", e);
+        }
+    }
+
+    public void updateItemsFromIndex(TodoItem item) {
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String mergedTodoJson = mapper.writeValueAsString(item);
+
+            String script = "{\n" +
+                    "    \"doc_as_upsert\" : \"true\",\n" +
+                    "    \"doc\" : " + mergedTodoJson +
+                    "}";
+
+            Update update =  new Update.Builder(script).index(INDEX_NAME).type(INDEX_TYPE).id(item.getId())
+                    .build();
+            this.client.execute(update);
+        } catch (Exception e) {
+            log.error("Error while updating item from index", e);
         }
     }
 
@@ -75,8 +110,8 @@ public class SearchService {
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(query, "title^5", "body"));
         Search search = (Search) new Search.Builder(searchSourceBuilder.toString())
                 // multiple index or types can be added.
-                .addIndex("todoItems")
-                .addType("item")
+                .addIndex(INDEX_NAME)
+                .addType(INDEX_TYPE)
                 .build();
         try {
 

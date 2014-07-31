@@ -67,7 +67,9 @@ public class TodoItemService {
     public void deleteItem(String id) {
 
         repository.delete(id);
+
         //remove deletedItem from search index;
+        searchService.removeItemsFromIndex(id);
     }
 
     public TodoItem updateItem(String id, String title, String body, boolean markDone) {
@@ -84,7 +86,8 @@ public class TodoItemService {
 
         repository.update(currentItem);
 
-        //TODO : update item in index;
+        //update item in index;
+        searchService.updateItemsFromIndex(currentItem);
 
         //if done , then send sms
         if(markDone) {
