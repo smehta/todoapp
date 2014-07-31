@@ -34,11 +34,8 @@ From the command line with Maven:
     $ mvn clean package
     $ java -jar target/dependency/webapp-runner.jar target/*.war
 
-REST API
+REST API Details :
 --------------
-Sample JSON of todo app:
-{ "title" : "Cleaning house" "body" : "Laundry etc..", "done" : false }
-
 REST URI for the following todo app use cases:
 
 
@@ -53,3 +50,9 @@ REST URI for the following todo app use cases:
 5. Update item(title, body, done)  ( PUT - /todo/items/{id} )
 
 6. search for item ( GET - /todo/items?q=“cleaning” )
+
+
+Sample JSON
+
+     { "title" : "Cleaning house" "body" : "Laundry etc..", "done" : false }
+
