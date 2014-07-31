@@ -50,8 +50,8 @@ public class TodoItemInMemoryRepository implements ItemRepository {
     }
 
     @Override
-    public TodoItem delete(String id) {
+    public void delete(String id) {
 
-        return items.remove(id);
+        items.remove(id);
     }
 }

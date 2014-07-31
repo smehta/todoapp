@@ -4,6 +4,7 @@ package com.todo.service;
 import com.todo.domain.TodoItem;
 import com.todo.repository.ItemRepository;
 import com.todo.repository.TodoItemInMemoryRepository;
+import com.todo.repository.TodoItemMongodbRepository;
 import io.searchbox.core.Search;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -25,13 +26,11 @@ public class TodoItemService {
 
     private static final TodoItemService service = new TodoItemService();
 
-
-    private final ItemRepository repository = new TodoItemInMemoryRepository();
+    private final ItemRepository repository = new TodoItemMongodbRepository();
 
     private final NotificationService notificationService = new TwilioNotificationServiceImpl();
 
     private final SearchService searchService = SearchService.getService();
-
 
 
     public static TodoItemService getService() {
@@ -65,15 +64,10 @@ public class TodoItemService {
         return searchService.searchTodoItems(query);
     }
 
-    public TodoItem deleteItem(String id) {
+    public void deleteItem(String id) {
 
-
-        TodoItem deletedItem = repository.delete(id);
-
+        repository.delete(id);
         //remove deletedItem from search index;
-
-        return  deletedItem;
-
     }
 
     public TodoItem updateItem(String id, String title, String body, boolean markDone) {

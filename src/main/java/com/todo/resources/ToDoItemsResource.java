@@ -48,10 +48,9 @@ public class ToDoItemsResource {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public  TodoItemResponse deleteItem(@PathParam("id") String itemId) {
+    public  void deleteItem(@PathParam("id") String itemId) {
 
-        TodoItem item =  TodoItemService.getService().deleteItem(itemId);
-        return new TodoItemResponse(item);
+        TodoItemService.getService().deleteItem(itemId);
     }
 
     @PUT

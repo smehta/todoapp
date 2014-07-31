@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by smehta on 7/29/14.
  */
-public class TwilioNotificationServiceImpl implements NotificationService{
+public class TwilioNotificationServiceImpl implements NotificationService {
 
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");

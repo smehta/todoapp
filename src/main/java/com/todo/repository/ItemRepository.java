@@ -17,5 +17,5 @@ public interface ItemRepository {
 
     public TodoItem findById(String id);
 
-    public TodoItem delete(String id);
+    public void delete(String id);
 }
