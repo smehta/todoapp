@@ -6,11 +6,17 @@ Pre-requisites:
 Please set following environment variables
 
 export TWILIO_ACCOUNT_SID=
+
 export TWILIO_AUTH_TOKEN=
+
 export TWILIO_TO=
+
 export TWILIO_FROM=
+
 export SEARCHLY_URI=
+
 export MONGO_HOST=
+
 export MONGO_PORT=
 
 
