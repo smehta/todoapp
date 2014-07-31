@@ -1,5 +1,5 @@
 Todo App
-____________
+---------------
 Demonstrates the capabilities of REST api implemented using Jersey, Maven, mongodb, elasticsearch and twilio. 
 
 Pre-requisites:
@@ -7,16 +7,32 @@ Pre-requisites:
 
 Please set following environment variables :
 
-*  TWILIO_ACCOUNT_SID=
-*  TWILIO_AUTH_TOKEN=
-*  TWILIO_TO=
-*  TWILIO_FROM=
-*  SEARCHLY_URI=
-*  MONGO_HOST=
-*  MONGO_PORT=
+*  TWILIO_ACCOUNT_SID
+*  TWILIO_AUTH_TOKEN
+*  TWILIO_TO
+*  TWILIO_FROM
+*  SEARCHLY_URI
+*  MONGO_HOST
+*  MONGO_PORT
 
 Example: 
-$ export MONGO_HOST="localhost"
+
+     $ export MONGO_HOST=localhost
+
+
+To get the code:
+-------------------
+Clone the repository:
+
+    $ git clone git://github.com/smehta/todoapp.git
+
+To run the application:
+-------------------	
+From the command line with Maven:
+
+    $ cd todoapp
+    $ mvn clean package
+    $ java -jar target/dependency/webapp-runner.jar target/*.war
 
 REST API
 --------------
