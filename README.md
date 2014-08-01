@@ -11,9 +11,8 @@ Please set following environment variables :
 *  TWILIO_AUTH_TOKEN
 *  TWILIO_TO
 *  TWILIO_FROM
-*  SEARCHLY_URI
-*  MONGO_HOST
-*  MONGO_PORT
+*  SEARCHBOX_URL
+*  MONGOHQ_URL
 
 Example: 
 
