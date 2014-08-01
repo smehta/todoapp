@@ -1,25 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-// COPYRIGHT
-//    Copyright (c) 2013 iRise. ALL RIGHTS RESERVED
-//
-// TRADE SECRET NOTICE
-//    This software contains trade secret information belonging to iRise.
-//    Permission to view, copy, or disclose is prohibited without the
-//    express written consent of iRise.
-//
-// WARRANTY DISCLAIMER
-//    THE IRISE CORPORATION MAKES NO REPRESENTATION ABOUT THE SUITABILITY
-//    OR ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO
-//    WARRANTIES, EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND
-//    FITNESS FOR A PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR
-//    DATA WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS,
-//    OR OTHER RIGHTS. THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
-//
-// SPECIFICATIONS ARE SUBJECT TO CHANGE WITHOUT NOTICE
-//
-//////////////////////////////////////////////////////////////////////////////
-
 package com.todo.validation;
 
 import javax.validation.Constraint;
