@@ -3,6 +3,7 @@ package com.todo.repository;
 import com.mongodb.*;
 import com.todo.domain.TodoItem;
 
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,16 @@ public class TodoItemMongodbRepository implements ItemRepository {
     public TodoItemMongodbRepository() {
 
         try {
-            MongoClientURI clientURI = new MongoClientURI(MONGO_URL);
-            MongoClient client = new MongoClient(clientURI);
-            db = client.getDB("todoDB");
+
+            MongoURI mongoURI = new MongoURI(System.getenv("MONGOHQ_URL"));
+            Mongo m = new Mongo(mongoURI);
+            db = m.getDB(mongoURI.getDatabase());
+
+            //authenticate if credentials are passed
+            if ((mongoURI.getUsername() != null) && (mongoURI.getPassword() != null)) {
+                db.authenticate(mongoURI.getUsername(), mongoURI.getPassword());
+            }
+
             if (db == null) {
                 throw  new WebApplicationException("Database is down", 500);
             }
