@@ -19,8 +19,7 @@ import javax.ws.rs.WebApplicationException;
 public class TodoItemMongodbRepository implements ItemRepository {
 
 
-    private static final String MONGO_HOST = System.getenv("MONGO_HOST");
-    private static final int MONGO_PORT = Integer.parseInt(System.getenv("MONGO_PORT"));
+    private static final String MONGO_URL = System.getenv("MONGOHQ_URL");
     private static final String ITEMS_COLLECTION = "todoItems";
 
     private final Logger log = LoggerFactory.getLogger(TodoItemMongodbRepository.class);
@@ -32,18 +31,20 @@ public class TodoItemMongodbRepository implements ItemRepository {
     public TodoItemMongodbRepository() {
 
         try {
-
-            MongoClient client = new MongoClient(MONGO_HOST, MONGO_PORT);
+            MongoClientURI clientURI = new MongoClientURI(MONGO_URL);
+            MongoClient client = new MongoClient(clientURI);
             db = client.getDB("todoDB");
-
             if (db == null) {
                 throw  new WebApplicationException("Database is down", 500);
             }
         } catch (UnknownHostException exception) {
 
             log.error("Error connecting to mongodb server", exception);
-
             throw  new WebApplicationException("Database is down", 500);
+
+        } catch (Exception ex) {
+            log.error("Something went wrong with mongo config", ex);
+            throw  new WebApplicationException("Database config is wrong", 500);
         }
     }
 

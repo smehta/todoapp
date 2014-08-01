@@ -29,7 +29,7 @@ public class SearchService {
 
     private static final SearchService searchService = new SearchService();
 
-    private static final String SEARCH_URI = System.getenv("SEARCHLY_URI");
+    private static final String SEARCH_URI = System.getenv("SEARCHBOX_URL");
 
     private static final String INDEX_NAME = "todoItems";
     private static final String INDEX_TYPE = "items";
